@@ -1,16 +1,28 @@
-# lautkita_mobile
+<h1 align="center">Laut Kita</h1>
 
-A new Flutter project.
+## 📌 Overview
 
-## Getting Started
+Laut Kita is an application designed for marine ecosystem conservation, facilitating collaboration between environmental care communities, volunteers, and environmental organizations. The application integrates social media to raise awareness of maritime issues and support the sustainability of marine ecosystems. Its main features include opportunities to participate as volunteers, make donations, and a marketplace that supports marine cleaning activities and the preservation of marine life.
 
-This project is a starting point for a Flutter application.
+## 📸 Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+#### Login Page
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="screenshots/login_page.png" alt="drawing" width="200"/>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Sign Up Page
+
+<img src="screenshots/sign_up_page.png" alt="drawing" width="200"/>
+
+#### Forgot Password Page
+
+<img src="screenshots/forgot_password_page.png" alt="drawing" width="200"/>
+
+## 🤝 Teams
+
+Team Name: **Lakse Basah**
+
+- Audy Naufal Ghiffari **(Hustler)**
+- Galih Tri Risky Andiko **(Hipster)**
+- Charles Bintang **(Hacker)**
+- Ari Kurniawan **(Hacker)**
