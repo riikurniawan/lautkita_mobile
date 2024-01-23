@@ -157,14 +157,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                 ),
               ),
             ),
-            // Positioned(
-            //   top: 0,
-            //   child: Container(
-            //     color: Colors.amber,
-            //     height: 300.h,
-            //     width: 335.w,
-            //   ),
-            // )
           ],
         ),
       ),

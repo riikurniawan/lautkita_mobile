@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lautkita_mobile/pages/artikel_detail.dart';
+import 'package:lautkita_mobile/pages/article_detail.dart';
+import 'package:lautkita_mobile/pages/campaign_detail.dart';
 import 'package:lautkita_mobile/pages/login_page.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: ArticleDetail(),
+          home: CampaignDetail(),
         );
       },
     );
