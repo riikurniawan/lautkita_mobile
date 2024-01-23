@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lautkita_mobile/pages/login_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lautkita_mobile/bloc/login/login_bloc.dart';
+import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
+import 'package:lautkita_mobile/bloc/register/register_bloc.dart';
+import 'package:lautkita_mobile/pages/auth/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +15,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(),
+        ),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: LoginPage(),
+      ),
     );
   }
 }

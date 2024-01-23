@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lautkita_mobile/pages/login_page.dart';
+import 'package:lautkita_mobile/pages/auth/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
