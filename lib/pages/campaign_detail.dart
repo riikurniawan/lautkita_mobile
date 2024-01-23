@@ -91,149 +91,19 @@ class _CampaignDetailState extends State<CampaignDetail> {
                         const JudulCampaign(),
 
                         // Container Rating, Member, Lokasi
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.grey,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                // Rating
-                                const Column(
-                                  children: [
-                                    Text("Rating"),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.star_rate_rounded),
-                                        Text("4.5"),
-                                      ],
-                                    )
-                                  ],
-                                ),
-
-                                // Garis
-                                SizedBox(
-                                  height: 50.h,
-                                  child: VerticalDivider(
-                                    width: 20.w,
-                                    thickness: 2,
-                                    color: Colors.amber,
-                                  ),
-                                ),
-
-                                // Joined Member
-                                Column(
-                                  children: [
-                                    const Text("Joined Member"),
-                                    // cara buat image tumpuk: Widget SizedBox -> Stack -> Container decoration image
-                                    // Stack of Images
-                                    SizedBox(
-                                      width: 100.w,
-                                      height: 30.h,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            left: 0,
-                                            child: Container(
-                                              width: 20.w,
-                                              height: 20.h,
-                                              decoration: BoxDecoration(
-                                                color: Colors.amber,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 10,
-                                            child: Container(
-                                              width: 20.w,
-                                              height: 20.h,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 20,
-                                            child: Container(
-                                              width: 20.w,
-                                              height: 20.h,
-                                              decoration: BoxDecoration(
-                                                color: Colors.pink,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 30,
-                                            child: Container(
-                                              width: 20.w,
-                                              height: 20.h,
-                                              decoration: BoxDecoration(
-                                                color: Colors.orange,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            left: 40,
-                                            child: Container(
-                                              width: 20.w,
-                                              height: 20.h,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    Colors.deepOrange.shade50,
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                              child: const FittedBox(
-                                                fit: BoxFit.scaleDown,
-                                                child: Text(
-                                                  "+9",
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const Expanded(child: SizedBox()),
-                                // map atau lokasi
-                                Container(
-                                  width: 45.w,
-                                  height: 45.h,
-                                  decoration: BoxDecoration(
-                                    color: Colors.amber,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        const ContainerRating(),
 
                         // About Campaign
                         const Text(
                           "\nAbout Campaign\n",
                           style: TextStyle(
                             fontSize: 16,
-                            color: Color(0xFF333647),
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
                         ),
+
                         // Detail Campaign
                         SizedBox(
                           height: 100.h,
@@ -251,59 +121,33 @@ class _CampaignDetailState extends State<CampaignDetail> {
                             ),
                           ),
                         ),
+
                         // Organisasi
                         ListTile(
                           leading: Container(
-                            width: 30.w,
-                            height: 30.h,
+                            width: 50.w,
+                            height: 50.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: Colors.amber,
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage("assets/images/Ellipse-17.png"),
+                              ),
                             ),
                           ),
-                          title: const Text("Ocean Rescue Inc"),
+                          title: const Text(
+                            "Ocean Rescue Inc",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           subtitle: const Text("Trusted charity organizer"),
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 0.0),
                         ),
-                        SizedBox(
-                          height: 50.h,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {},
-                                style: const ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll(Colors.grey),
-                                  foregroundColor:
-                                      MaterialStatePropertyAll(Colors.white),
-                                ),
-                                child: const Text("Donate"),
-                              ),
-                              const Text(
-                                "or",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.arrow_back_ios),
-                                  label: const Text("Join Campaign"),
-                                  style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        Colors.blueAccent),
-                                    foregroundColor:
-                                        MaterialStatePropertyAll(Colors.white),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
+
+                        //  2 Button Donate or Join Campaign
+                        const ButtonDonateJoinCampaign()
                       ],
                     ),
                   ),
@@ -329,6 +173,224 @@ class _CampaignDetailState extends State<CampaignDetail> {
   }
 }
 
+class ButtonDonateJoinCampaign extends StatelessWidget {
+  const ButtonDonateJoinCampaign({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ElevatedButton(
+            onPressed: () {},
+            style: const ButtonStyle(
+              shape: MaterialStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+              ),
+              backgroundColor: MaterialStatePropertyAll(Color(0xFFFF7029)),
+              foregroundColor: MaterialStatePropertyAll(Colors.white),
+            ),
+            child: const Text("Donate"),
+          ),
+          const Text(
+            "or",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_back_ios),
+              label: const Text("Join Campaign"),
+              style: const ButtonStyle(
+                shape: MaterialStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                ),
+                iconSize: MaterialStatePropertyAll(20),
+                backgroundColor: MaterialStatePropertyAll(Color(0xFF00A8CC)),
+                foregroundColor: MaterialStatePropertyAll(Colors.white),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ContainerRating extends StatelessWidget {
+  const ContainerRating({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Container(
+        clipBehavior: Clip.none,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: const Color(0xFFE6EEFA),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              // Rating
+              const Column(
+                children: [
+                  Text("Rating"),
+                  Row(
+                    children: [
+                      Icon(Icons.star_rate_rounded, color: Color(0xFFF7BD25)),
+                      Text(
+                        "4.5",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+
+              // Garis
+              SizedBox(
+                height: 50.h,
+                child: VerticalDivider(
+                  width: 20.w,
+                  thickness: 2,
+                  color: Colors.amber,
+                ),
+              ),
+
+              // Joined Member
+              Column(
+                children: [
+                  const Text(
+                    "Joined Member",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // cara buat image tumpuk: Widget SizedBox -> Stack -> Container decoration image
+                  // Stack of Images
+                  SizedBox(
+                    width: 100.w,
+                    height: 30.h,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          child: Container(
+                            width: 25.w,
+                            height: 25.h,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 10,
+                          child: Container(
+                            width: 25.w,
+                            height: 25.h,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 20,
+                          child: Container(
+                            width: 25.w,
+                            height: 25.h,
+                            decoration: BoxDecoration(
+                              color: Colors.pink,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 30,
+                          child: Container(
+                            width: 25.w,
+                            height: 25.h,
+                            decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 40,
+                          child: Container(
+                            width: 25.w,
+                            height: 25.h,
+                            decoration: BoxDecoration(
+                              color: Colors.deepOrange.shade50,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "+9",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const Expanded(child: SizedBox()),
+              // map atau lokasi
+              Container(
+                width: 55.w,
+                height: 55.h,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/campaign-map.png"),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class JudulCampaign extends StatelessWidget {
   const JudulCampaign({
     super.key,
@@ -337,46 +399,92 @@ class JudulCampaign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // JUDUL
             Text(
               "Plastic Free",
               style: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF333647),
+                fontSize: 20,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Row(
-              children: [
-                // Lokasi
-                SizedBox(
-                  child: Row(
-                    children: [Icon(Icons.location_on_outlined), Text("Batam")],
+            // Lokasi dan tanggal
+            Padding(
+              padding: EdgeInsets.only(top: 4.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Lokasi
+                  Padding(
+                    padding: EdgeInsets.only(right: 12.0),
+                    child: SizedBox(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 15,
+                            color: Color(0xFF2F80ED),
+                          ),
+                          Text(
+                            "Batam",
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                // Tanggal
-                SizedBox(
-                  child: Row(
-                    children: [Icon(Icons.calendar_month), Text("Aug 23")],
-                  ),
-                )
-              ],
+                  // Tanggal
+                  SizedBox(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          size: 15,
+                          color: Color(0xFF2F80ED),
+                        ),
+                        Text(
+                          "Aug 23",
+                          style: TextStyle(
+                            color: Color(0xFF333333),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
         // favorit
         Container(
+          padding: const EdgeInsets.all(4.0),
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: const Color(0xFFE6EEFA),
             borderRadius: BorderRadius.circular(15),
           ),
           child: const Row(
             children: [
-              Text("2.5k"),
-              Icon(Icons.favorite),
+              Text(
+                "2.5k",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Icon(Icons.favorite, color: Color(0xFFFF0000)),
             ],
           ),
         )

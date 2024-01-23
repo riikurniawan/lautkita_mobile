@@ -85,7 +85,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                           contentPadding: EdgeInsets.symmetric(horizontal: 0),
                           leading: CircleAvatar(
                             backgroundImage:
-                                AssetImage("assets/images/Ellipse 5.png"),
+                                AssetImage("assets/images/Ellipse5.png"),
                             radius: 35,
                           ),
                           title: Text(
