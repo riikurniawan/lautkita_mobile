@@ -4,6 +4,9 @@ import 'package:lautkita_mobile/bloc/login/login_bloc.dart';
 import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/bloc/register/register_bloc.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
+import 'package:lautkita_mobile/pages/home/home_page.dart';
+
+import 'data/datasources/auth_local_datasources.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +30,24 @@ class MyApp extends StatelessWidget {
           create: (context) => LogoutBloc(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: FutureBuilder<bool>(
+          future: AuthLocalDatasource().isLogin(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (snapshot.hasData && snapshot.data!) {
+              return const HomePage();
+            } else {
+              return const LoginPage();
+            }
+          },
+        ),
       ),
     );
   }

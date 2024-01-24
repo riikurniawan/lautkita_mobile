@@ -37,8 +37,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  final FocusNode _emailNode = FocusNode();
-  final FocusNode _passNode = FocusNode();
 
   void loginUser() async {
     if (_formKeyLogin!.currentState!.validate()) {
@@ -214,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                                           .saveAuthData(data);
                                       Navigator.pushAndRemoveUntil(context,
                                           MaterialPageRoute(builder: (context) {
-                                        return HomePage();
+                                        return const HomePage();
                                       }), (route) => false);
                                     },
                                     error: (message) {
