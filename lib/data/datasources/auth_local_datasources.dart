@@ -19,16 +19,22 @@ class AuthLocalDatasource {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     final authJson = pref.getString('auth') ?? '';
     final authModel = AuthResponseModel.fromJson(authJson);
-    return authModel.user.name; 
+    return authModel.user.name;
+  }
+
+  Future<String?> getUserRole() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final authJson = pref.getString('auth') ?? '';
+    final authModel = AuthResponseModel.fromJson(authJson);
+    return authModel.user.role;
   }
 
   // Future<String?> getUserEmail() async {
   //   final SharedPreferences pref = await SharedPreferences.getInstance();
   //   final authJson = pref.getString('auth') ?? '';
   //   final authModel = AuthResponseModel.fromJson(authJson);
-  //   return authModel.; 
+  //   return authModel.;
   // }
-
 
   Future<String> getToken() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
-import 'package:lautkita_mobile/pages/community/c_home_page.dart';
 
-import '../../bloc/logout/logout_bloc.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CHomePage extends StatefulWidget {
+  const CHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CHomePage> createState() => _CHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CHomePageState extends State<CHomePage> {
   String token = '';
   String name = '';
 
@@ -31,13 +29,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         name = value ?? '';
       });
-    });
-
-    AuthLocalDatasource().getUserRole().then((value) {
-      if (value == 'community') {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: ((context) => const CHomePage())));
-      }
     });
   }
 
@@ -72,7 +63,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Community'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -151,8 +142,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: const Center(
-        child: Text("Home Page"),
+      body: Center(
+        child: Text("Community"),
       ),
     );
   }
