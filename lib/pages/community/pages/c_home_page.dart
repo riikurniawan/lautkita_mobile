@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
-import 'package:lautkita_mobile/pages/auth/login_page.dart';
-import 'package:lautkita_mobile/utils/bottom_app_bar_clipper.dart';
-import 'package:lautkita_mobile/utils/clip_shadow_path.dart';
+import 'package:lautkita_mobile/pages/community/model/nav_model.dart';
+import 'package:lautkita_mobile/pages/community/pages/c_home_page_view.dart';
+import 'package:lautkita_mobile/pages/community/widget/bottom_app_bar_widget.dart';
 
 class CHomePage extends StatefulWidget {
   const CHomePage({super.key});
@@ -18,6 +14,14 @@ class CHomePage extends StatefulWidget {
 }
 
 class _CHomePageState extends State<CHomePage> {
+  final homeNavKey = GlobalKey<NavigatorState>();
+  final marketplaceNavKey = GlobalKey<NavigatorState>();
+  final notificationNavKey = GlobalKey<NavigatorState>();
+  final profileNavKey = GlobalKey<NavigatorState>();
+
+  int selectedTab = 0;
+  List<NavModel> NavItems = [];
+
   String token = '';
   String name = '';
   TextEditingController searchBox = TextEditingController();
@@ -37,6 +41,25 @@ class _CHomePageState extends State<CHomePage> {
         name = value ?? '';
       });
     });
+
+    NavItems = [
+      NavModel(
+        navKey: homeNavKey,
+        page: CHomePageView(searchBox: searchBox),
+      ),
+      NavModel(
+        navKey: marketplaceNavKey,
+        page: const TabPage(tab: 1),
+      ),
+      NavModel(
+        navKey: notificationNavKey,
+        page: const TabPage(tab: 2),
+      ),
+      NavModel(
+        navKey: profileNavKey,
+        page: const TabPage(tab: 3),
+      ),
+    ];
   }
 
   void showLogoutAlertDialog(BuildContext context) {
@@ -69,6 +92,7 @@ class _CHomePageState extends State<CHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Drawer
       // drawer: Drawer(
       //   child: ListView(
       //     padding: EdgeInsets.zero,
@@ -147,67 +171,20 @@ class _CHomePageState extends State<CHomePage> {
       //   ),
       // ),
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 20,
-        ),
-        child: ClipShadowPath(
-          shadow: const BoxShadow(
-            color: Color(0x600396EF),
-            offset: Offset(0, 1),
-            blurRadius: 15,
-            spreadRadius: 5,
-          ),
-          clipper: BottomAppBarClipper(),
-          child: SizedBox(
-            child: Container(
-              height: 69.h,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/indicator.svg",
-                          colorFilter: ColorFilter.mode(
-                            Color(0xFF00A8CC),
-                            BlendMode.srcATop,
-                          ),
-                        ),
-                        SvgPicture.asset("assets/icons/indicator.svg"),
-                        SizedBox(),
-                        SvgPicture.asset("assets/icons/indicator.svg"),
-                        SvgPicture.asset("assets/icons/indicator.svg"),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/home.svg",
-                        colorFilter: ColorFilter.mode(
-                          Color(0xFF00A8CC),
-                          BlendMode.srcATop,
-                        ),
-                      ),
-                      SvgPicture.asset("assets/icons/shopping-basket.svg"),
-                      SizedBox(),
-                      SvgPicture.asset("assets/icons/notification.svg"),
-                      SvgPicture.asset("assets/icons/profile.svg"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomAppBarWidget(
+          pageIndex: selectedTab,
+          onTap: (index) {
+            if (index == selectedTab) {
+              NavItems[index]
+                  .navKey
+                  .currentState
+                  ?.popUntil((route) => route.isFirst);
+            } else {
+              setState(() {
+                selectedTab = index;
+              });
+            }
+          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 15.0, right: 2),
@@ -225,60 +202,51 @@ class _CHomePageState extends State<CHomePage> {
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            backgroundColor: Colors.white,
-            title: SizedBox(
-              height: 43.h,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF6F7F9),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 15.0,
-                        right: 8.0,
-                      ),
-                      child: SvgPicture.asset("assets/icons/search.svg"),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: searchBox,
-                        decoration: const InputDecoration(
-                          hintText: "Search",
-                          hintStyle: TextStyle(
-                            color: Color(0xFFBDBDBD),
-                            height: 1.45,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF6F7F9),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SvgPicture.asset("assets/icons/send.svg"),
-                    )),
-              ),
-            ],
-          )
-        ],
+      body: IndexedStack(
+        index: selectedTab,
+        children: NavItems.map(
+          (page) => Navigator(
+            key: page.navKey,
+            onGenerateInitialRoutes: (navigator, initialRoute) {
+              return [
+                MaterialPageRoute(builder: (context) => page.page),
+              ];
+            },
+          ),
+        ).toList(),
+      ),
+    );
+  }
+}
+
+class TabPage extends StatelessWidget {
+  final int tab;
+
+  const TabPage({Key? key, required this.tab}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("ini adalah tab $tab"),
+      ),
+    );
+  }
+}
+
+class Page extends StatelessWidget {
+  final int tab;
+
+  const Page({
+    super.key,
+    required this.tab,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("tab ini adalah $tab"),
       ),
     );
   }
