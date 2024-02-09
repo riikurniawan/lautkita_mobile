@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:lautkita_mobile/pages/community/widget/search_bar_widget.dart';
+import 'package:lautkita_mobile/widget/search_bar_widget.dart';
 
 class CHomePageView extends StatelessWidget {
   const CHomePageView({
@@ -19,7 +19,6 @@ class CHomePageView extends StatelessWidget {
         SliverAppBar(
           floating: true,
           backgroundColor: Colors.white,
-          // TODO : tanyakan warna teks dan kursor pada TextField
           title: SearchBarWidget(searchBox: searchBox),
           actions: [
             Padding(
@@ -65,20 +64,22 @@ class CHomePageView extends StatelessWidget {
                         height: 110.h,
                         width: MediaQuery.of(context).size.width,
                         child: Image.network(
+                          // DATA GAMBAR
                           "https://img.freepik.com/free-photo/breathtaking-shot-beautiful-stones-turquoise-water-lake-hills-background_181624-12847.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),
                       // teks
                       Padding(
-                        padding: EdgeInsets.fromLTRB(15, 5, 5, 5),
+                        padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
                         child: Column(
                           children: [
                             // judul campaign dan 3 dot
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
+                                  // DATA TITLE
                                   "Ocean Healty",
                                   style: TextStyle(
                                     color: Color(0xFF364C6F),
@@ -90,9 +91,10 @@ class CHomePageView extends StatelessWidget {
                               ],
                             ),
                             // deskripsi
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(right: 5),
                               child: Text(
+                                // DATA SUBTITLE
                                 "Lorem ipsum dolor sit amet consectetur. Amet maecenas.Viverra mi euismod dinamik mi euismod",
                                 style: TextStyle(
                                   color: Color(0xFF667085),
@@ -106,7 +108,7 @@ class CHomePageView extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
+                                    const Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -119,6 +121,7 @@ class CHomePageView extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
+                                          // DATA GOAL PERSEN
                                           "15%",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -130,14 +133,15 @@ class CHomePageView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.all(4),
-                                          margin: EdgeInsets.only(right: 5),
+                                          padding: const EdgeInsets.all(4),
+                                          margin:
+                                              const EdgeInsets.only(right: 5),
                                           decoration: BoxDecoration(
-                                            color: Color(0xFFE6EEFA),
+                                            color: const Color(0xFFE6EEFA),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
-                                          child: Text(
+                                          child: const Text(
                                             "Raise Goal",
                                             style: TextStyle(
                                               fontSize: 10,
@@ -151,8 +155,9 @@ class CHomePageView extends StatelessWidget {
                                             locale: 'id_ID',
                                             symbol: 'Rp',
                                             decimalDigits: 0,
+                                            // DATA TOTAL GOAL
                                           ).format(800000),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Color(
                                               0xFF9EAEC8,
                                             ),
@@ -167,11 +172,12 @@ class CHomePageView extends StatelessWidget {
                                   flex: 8,
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text("DETAIL"),
                                     style: ButtonStyle(
-                                      foregroundColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      backgroundColor: MaterialStatePropertyAll(
+                                      foregroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Colors.white),
+                                      backgroundColor:
+                                          const MaterialStatePropertyAll(
                                         Color(0xFF3EB5E8),
                                       ),
                                       shape: MaterialStatePropertyAll(
@@ -181,6 +187,7 @@ class CHomePageView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    child: const Text("DETAIL"),
                                   ),
                                 ),
                                 const Expanded(child: SizedBox()),
@@ -193,6 +200,7 @@ class CHomePageView extends StatelessWidget {
                   ),
                 );
               },
+              // DATA CHILDCOUNT
               childCount: 1,
             ),
           ),

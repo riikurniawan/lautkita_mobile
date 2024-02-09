@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lautkita_mobile/pages/community/utils/bottom_app_bar_clipper.dart';
-import 'package:lautkita_mobile/pages/community/utils/clip_shadow_path.dart';
+import 'package:lautkita_mobile/utils/bottom_app_bar_clipper.dart';
+import 'package:lautkita_mobile/utils/clip_shadow_path.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
   final int pageIndex;

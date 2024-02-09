@@ -4,7 +4,7 @@ import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
 import 'package:lautkita_mobile/pages/community/model/nav_model.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_home_page_view.dart';
-import 'package:lautkita_mobile/pages/community/widget/bottom_app_bar_widget.dart';
+import 'package:lautkita_mobile/widget/bottom_app_bar_widget.dart';
 
 class CHomePage extends StatefulWidget {
   const CHomePage({super.key});
@@ -20,7 +20,7 @@ class _CHomePageState extends State<CHomePage> {
   final profileNavKey = GlobalKey<NavigatorState>();
 
   int selectedTab = 0;
-  List<NavModel> NavItems = [];
+  List<NavModel> navItems = [];
 
   String token = '';
   String name = '';
@@ -42,7 +42,7 @@ class _CHomePageState extends State<CHomePage> {
       });
     });
 
-    NavItems = [
+    navItems = [
       NavModel(
         navKey: homeNavKey,
         page: CHomePageView(searchBox: searchBox),
@@ -175,7 +175,7 @@ class _CHomePageState extends State<CHomePage> {
           pageIndex: selectedTab,
           onTap: (index) {
             if (index == selectedTab) {
-              NavItems[index]
+              navItems[index]
                   .navKey
                   .currentState
                   ?.popUntil((route) => route.isFirst);
@@ -194,8 +194,8 @@ class _CHomePageState extends State<CHomePage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          backgroundColor: Color(0xFFFF7029),
-          child: Icon(
+          backgroundColor: const Color(0xFFFF7029),
+          child: const Icon(
             Icons.add,
             color: Colors.white,
             size: 30,
@@ -204,16 +204,18 @@ class _CHomePageState extends State<CHomePage> {
       ),
       body: IndexedStack(
         index: selectedTab,
-        children: NavItems.map(
-          (page) => Navigator(
-            key: page.navKey,
-            onGenerateInitialRoutes: (navigator, initialRoute) {
-              return [
-                MaterialPageRoute(builder: (context) => page.page),
-              ];
-            },
-          ),
-        ).toList(),
+        children: navItems
+            .map(
+              (page) => Navigator(
+                key: page.navKey,
+                onGenerateInitialRoutes: (navigator, initialRoute) {
+                  return [
+                    MaterialPageRoute(builder: (context) => page.page),
+                  ];
+                },
+              ),
+            )
+            .toList(),
       ),
     );
   }
