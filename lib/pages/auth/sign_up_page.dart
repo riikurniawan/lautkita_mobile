@@ -173,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   selectedStatus = value;
                                 });
                               },
-                              items: ["Volunteer", "Community"]
+                              items: ["volunteer", "community"]
                                   .map((label) => DropdownMenuItem(
                                         child: Text(label),
                                         value: label,
