@@ -26,7 +26,7 @@ class AuthLocalDatasource {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     final authJson = pref.getString('auth') ?? '';
     final authModel = AuthResponseModel.fromJson(authJson);
-    return authModel.user.role;
+    return authModel.user.role.toLowerCase();
   }
 
   // Future<String?> getUserEmail() async {

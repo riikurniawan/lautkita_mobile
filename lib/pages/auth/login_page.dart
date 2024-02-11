@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lautkita_mobile/pages/auth/forgot_password_page.dart';
 import 'package:lautkita_mobile/pages/auth/sign_up_page.dart';
-import 'package:lautkita_mobile/pages/home/home_page.dart';
+import 'package:lautkita_mobile/pages/loading.dart';
 
 import '../../bloc/login/login_bloc.dart';
 import '../../data/datasources/auth_local_datasources.dart';
@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController!.dispose();
     super.dispose();
   }
-
 
   void loginUser() async {
     if (_formKeyLogin!.currentState!.validate()) {
@@ -212,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                           .saveAuthData(data);
                                       Navigator.pushAndRemoveUntil(context,
                                           MaterialPageRoute(builder: (context) {
-                                        return const HomePage();
+                                        return const Loading();
                                       }), (route) => false);
                                     },
                                     error: (message) {

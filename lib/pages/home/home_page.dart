@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
-import 'package:lautkita_mobile/pages/community/pages/c_home_page.dart';
 
 import '../../bloc/logout/logout_bloc.dart';
 
@@ -31,13 +30,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         name = value ?? '';
       });
-    });
-
-    AuthLocalDatasource().getUserRole().then((value) {
-      if (value == 'community') {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: ((context) => const CHomePage())));
-      }
     });
   }
 

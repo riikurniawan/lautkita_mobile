@@ -5,7 +5,7 @@ import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/bloc/register/register_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
-import 'package:lautkita_mobile/pages/home/home_page.dart';
+import 'package:lautkita_mobile/pages/loading.dart';
 
 import 'data/datasources/auth_local_datasources.dart';
 
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                   ),
                 );
               } else if (snapshot.hasData && snapshot.data!) {
-                return const HomePage();
+                return const Loading();
               } else {
                 return const LoginPage();
               }
