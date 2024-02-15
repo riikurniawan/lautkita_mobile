@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
+import 'package:lautkita_mobile/bloc/article/article_bloc.dart';
+import 'package:lautkita_mobile/data/models/article_response_model.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_home_page.dart';
 
 import '../../bloc/logout/logout_bloc.dart';
-import '../../data/models/article_model.dart';
+import '../../data/datasources/auth_local_datasources.dart';
 import '../../utils/color_resources.dart';
+import 'widgets/item_article_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final post = Post;
+
   final ScrollController _scrollController = ScrollController();
   TextEditingController searchController = TextEditingController();
 
@@ -45,6 +49,8 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: ((context) => const CHomePage())));
       }
     });
+
+    context.read<ArticleBloc>().add(const ArticleEvent.getAll());
   }
 
   void showLogoutAlertDialog(BuildContext context) {
@@ -113,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: ColorResources.orange,
                       child: Text(
                         '3',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: ColorResources.white,
                           fontSize: 10.0,
                         ),
@@ -281,19 +287,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  16.0,
-                  10.0,
-                  15.0,
-                  10.0,
-                ),
+                padding: const EdgeInsets.fromLTRB(16.0, 10.0, 15.0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         "Discover things of this world",
                         style: TextStyle(
@@ -302,59 +303,50 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.0),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    items[index].imagePath,
-                                    height: 96.0,
-                                    width: 96.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(width: 8.0),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        items[index].title,
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 4.0),
-                                      Text(
-                                        items[index].description,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
                   ],
                 ),
               ),
+            ),
+            BlocBuilder<ArticleBloc, ArticleState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      sliver: SliverToBoxAdapter(
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    );
+                  },
+                  error: (message) {
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      sliver: SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(message),
+                        ),
+                      ),
+                    );
+                  },
+                  loaded: (model) {
+                    return SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return ArticleItemWidget(
+                              post: model.posts![index],
+                            );
+                          },
+                          childCount: model.posts!.length,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),

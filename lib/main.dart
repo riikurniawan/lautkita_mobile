@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lautkita_mobile/bloc/article/article_bloc.dart';
 import 'package:lautkita_mobile/bloc/login/login_bloc.dart';
 import 'package:lautkita_mobile/bloc/logout/logout_bloc.dart';
 import 'package:lautkita_mobile/bloc/register/register_bloc.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => LogoutBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ArticleBloc(),
           ),
         ],
         child: MaterialApp(
