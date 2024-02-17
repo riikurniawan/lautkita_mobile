@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lautkita_mobile/data/models/article_response_model.dart';
 
+import '../../../common/global_variables.dart';
+
 class ArticleItemWidget extends StatelessWidget {
   final Post post;
 
@@ -15,6 +17,7 @@ class ArticleItemWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
@@ -22,7 +25,7 @@ class ArticleItemWidget extends StatelessWidget {
                 height: 96.0,
                 width: 96.0,
                 fit: BoxFit.cover,
-                image: post.image!,
+                image: '${GlobalVariables.baseUrl}${post.image}',
                 placeholder: 'assets/images/placeholder_1x1.png',
                 imageErrorBuilder: (c, o, s) => Image.asset(
                   'assets/images/placeholder_1x1.png',
@@ -32,11 +35,26 @@ class ArticleItemWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16.0),
-            Text(
-              post.title!,
-              style: const TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8),
+                  Text(
+                    post.category!.name!,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    post.title!,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -45,3 +63,4 @@ class ArticleItemWidget extends StatelessWidget {
     );
   }
 }
+
