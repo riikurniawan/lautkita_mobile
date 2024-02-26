@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../common/global_variables.dart';
 import '../data/models/article_response_model.dart';
@@ -63,7 +64,9 @@ class _ArticleDetailState extends State<ArticleDetail> {
                                 color: Colors.white,
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await Share.share('${GlobalVariables.baseUrl}/blog/${widget.post.slug}');
+                                },
                                 icon: SvgPicture.asset(
                                   "assets/icons/share-icon.svg",
                                 ),
