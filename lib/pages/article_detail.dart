@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../common/global_variables.dart';
+import '../data/datasources/article_local_datasources.dart';
 import '../data/models/article_response_model.dart';
 
 class ArticleDetail extends StatefulWidget {
@@ -16,7 +20,82 @@ class ArticleDetail extends StatefulWidget {
 }
 
 class _ArticleDetailState extends State<ArticleDetail> {
+  final ArticleLocalDatasource _localDatasource = ArticleLocalDatasource();
 
+  bool isArticleSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkArticleSaved();
+  }
+
+  Future<void> checkArticleSaved() async {
+    final List<Post> savedArticles = await _localDatasource.getSavedArticles();
+    setState(() {
+      isArticleSaved = savedArticles.contains(widget.post);
+    });
+  }
+
+  Future<void> _saveArticle() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final String? existingData = pref.getString('article_data');
+    List<Post> articles = [];
+
+    if (existingData != null) {
+      final decodedData = jsonDecode(existingData);
+      if (decodedData is List) {
+        for (var item in decodedData) {
+          articles.add(Post.fromJson(item));
+        }
+      } else {
+        print('Data yang ada bukanlah list!');
+      }
+    }
+
+    articles.add(widget.post);
+
+    final jsonString = jsonEncode(articles);
+    await pref.setString('article_data', jsonString);
+
+    setState(() {
+      isArticleSaved = true; // Setelah disimpan, ubah status menjadi true
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Artikel disimpan ke dalam penyimpanan lokal')),
+    );
+  }
+
+  Future<void> _removeArticle() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final String? existingData = pref.getString('article_data');
+    List<Post> articles = [];
+
+    if (existingData != null) {
+      final decodedData = jsonDecode(existingData);
+      if (decodedData is List) {
+        for (var item in decodedData) {
+          articles.add(Post.fromJson(item));
+        }
+      } else {
+        print('Data yang ada bukanlah list!');
+      }
+    }
+
+    articles.removeWhere((article) => article.slug == widget.post.slug);
+
+    final jsonString = jsonEncode(articles);
+    await pref.setString('article_data', jsonString);
+
+    setState(() {
+      isArticleSaved = false; // Setelah dihapus, ubah status menjadi false
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Artikel dihapus dari penyimpanan lokal')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,22 +135,30 @@ class _ArticleDetailState extends State<ArticleDetail> {
                           Column(
                             children: [
                               IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.bookmark_border_rounded,
+                                onPressed: () {
+                                  if (isArticleSaved) {
+                                    _removeArticle();
+                                  } else {
+                                    _saveArticle();
+                                  }
+                                },
+                                icon: Icon(
+                                  isArticleSaved
+                                      ? Icons.bookmark
+                                      : Icons.bookmark_border_rounded,
                                   color: Colors.white,
                                 ),
-                                color: Colors.white,
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  await Share.share('${GlobalVariables.baseUrl}/blog/${widget.post.slug}');
+                                  await Share.share(
+                                      '${GlobalVariables.baseUrl}/blog/${widget.post.slug}');
                                 },
                                 icon: SvgPicture.asset(
                                   "assets/icons/share-icon.svg",
                                 ),
                                 color: Colors.white,
-                              )
+                              ),
                             ],
                           )
                         ],

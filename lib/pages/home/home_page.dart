@@ -5,6 +5,7 @@ import 'package:lautkita_mobile/bloc/article/article_bloc.dart';
 import 'package:lautkita_mobile/data/models/article_response_model.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_home_page.dart';
+import 'package:lautkita_mobile/pages/home/article/saved_article.dart';
 
 import '../../bloc/logout/logout_bloc.dart';
 import '../../data/datasources/auth_local_datasources.dart';
@@ -165,6 +166,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.collections_bookmark_outlined),
+              title: const Text('Koleksi'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SavedArticlePage()),
+                );
+              },
             ),
             BlocConsumer<LogoutBloc, LogoutState>(
               listener: (context, state) {
