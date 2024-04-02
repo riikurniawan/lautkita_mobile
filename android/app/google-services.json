@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991203841996",
+    "project_id": "lautkita-54a5f",
+    "storage_bucket": "lautkita-54a5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991203841996:android:b7233fc4f7aae3aac0af69",
+        "android_client_info": {
+          "package_name": "com.example.lautkita_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtOYidfCp-NWEqfBwF5bj60Pt1SBqWC_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
