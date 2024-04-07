@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
 import 'package:lautkita_mobile/pages/community/model/nav_model.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_home_page_view.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_profile.dart';
@@ -29,17 +28,17 @@ class _CHomePageState extends State<CHomePage> {
   void initState() {
     super.initState();
 
-    AuthLocalDatasource().getToken().then((value) {
-      setState(() {
-        token = value;
-      });
-    });
+    // AuthLocalDatasource().getToken().then((value) {
+    //   setState(() {
+    //     token = value;
+    //   });
+    // });
 
-    AuthLocalDatasource().getUserName().then((value) {
-      setState(() {
-        name = value ?? '';
-      });
-    });
+    // AuthLocalDatasource().getUserName().then((value) {
+    //   setState(() {
+    //     name = value ?? '';
+    //   });
+    // });
   }
 
   @override

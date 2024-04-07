@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '991203841996',
     projectId: 'lautkita-54a5f',
     authDomain: 'lautkita-54a5f.firebaseapp.com',
+    databaseURL: 'https://lautkita-54a5f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'lautkita-54a5f.appspot.com',
     measurementId: 'G-H2RWSMYLCZ',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:991203841996:android:b7233fc4f7aae3aac0af69',
     messagingSenderId: '991203841996',
     projectId: 'lautkita-54a5f',
+    databaseURL: 'https://lautkita-54a5f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'lautkita-54a5f.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:991203841996:ios:89c5cfa644179e5cc0af69',
     messagingSenderId: '991203841996',
     projectId: 'lautkita-54a5f',
+    databaseURL: 'https://lautkita-54a5f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'lautkita-54a5f.appspot.com',
     iosBundleId: 'com.example.lautkitaMobile',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:991203841996:ios:cf6035b6c1bbe619c0af69',
     messagingSenderId: '991203841996',
     projectId: 'lautkita-54a5f',
+    databaseURL: 'https://lautkita-54a5f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'lautkita-54a5f.appspot.com',
     iosBundleId: 'com.example.lautkitaMobile.RunnerTests',
   );

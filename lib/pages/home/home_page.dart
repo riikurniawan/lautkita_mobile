@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,17 +27,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    AuthLocalDatasource().getToken().then((value) {
-      setState(() {
-        token = value;
-      });
-    });
+    // AuthLocalDatasource().getToken().then((value) {
+    //   setState(() {
+    //     token = value;
+    //   });
+    // });
 
-    AuthLocalDatasource().getUserName().then((value) {
-      setState(() {
-        name = value ?? '';
-      });
-    });
+    // AuthLocalDatasource().getUserName().then((value) {
+    //   setState(() {
+    //     name = value ?? '';
+    //   });
+    // });
   }
 
   void showLogoutAlertDialog(BuildContext context) {
@@ -54,9 +55,13 @@ class _HomePageState extends State<HomePage> {
               child: const Text("Cancel"),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).pop();
-                context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                // context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                await FirebaseAuth.instance.signOut().then((value) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const LoginPage()));
+                });
               },
               child: const Text("Logout"),
             ),
@@ -70,7 +75,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -202,154 +209,150 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: SafeArea(
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverDelegate(
-                child: InkWell(
-                  onTap: () {},
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: SliverDelegate(
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 10.0,
+                  ),
+                  color: ColorResources.getHomeBg(context),
+                  alignment: Alignment.center,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 10.0,
+                    padding: const EdgeInsets.only(
+                      left: 16.0,
+                      right: 5.0,
+                      top: 5.0,
+                      bottom: 5.0,
                     ),
-                    color: ColorResources.getHomeBg(context),
-                    alignment: Alignment.center,
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 16.0,
-                        right: 5.0,
-                        top: 5.0,
-                        bottom: 5.0,
+                    height: 60,
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[200]!,
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(
+                        5.0,
                       ),
-                      height: 60,
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[200]!,
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(
-                          5.0,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.search,
+                          color: ColorResources.blue,
+                          size: 28.0,
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.search,
-                            color: ColorResources.blue,
-                            size: 28.0,
-                          ),
-                          const SizedBox(
-                              width:
-                                  8), // Add some spacing between icon and text
-                          Expanded(
-                            child: TextField(
-                              controller: searchController,
-                              decoration: InputDecoration(
-                                hintText: 'Search campaign...',
-                                hintStyle: TextStyle(
-                                  color: Theme.of(context).hintColor,
-                                ),
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                              ),
-                              style: TextStyle(
+                        const SizedBox(
+                            width: 8), // Add some spacing between icon and text
+                        Expanded(
+                          child: TextField(
+                            controller: searchController,
+                            decoration: InputDecoration(
+                              hintText: 'Search campaign...',
+                              hintStyle: TextStyle(
                                 color: Theme.of(context).hintColor,
                               ),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            style: TextStyle(
+                              color: Theme.of(context).hintColor,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  16.0,
-                  10.0,
-                  15.0,
-                  10.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Discover things of this world",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Color(0xFF4A4A4A),
-                        ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                16.0,
+                10.0,
+                15.0,
+                10.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Discover things of this world",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Color(0xFF4A4A4A),
                       ),
                     ),
-                    SizedBox(height: 16.0),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    items[index].imagePath,
-                                    height: 96.0,
-                                    width: 96.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  items[index].imagePath,
+                                  height: 96.0,
+                                  width: 96.0,
+                                  fit: BoxFit.cover,
                                 ),
-                                SizedBox(width: 8.0),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        items[index].title,
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                              ),
+                              SizedBox(width: 8.0),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      items[index].title,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      SizedBox(height: 4.0),
-                                      Text(
-                                        items[index].description,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.grey,
-                                        ),
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      items[index].description,
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.grey,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
