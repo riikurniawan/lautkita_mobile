@@ -11,7 +11,7 @@ import 'package:lautkita_mobile/common/global_variables.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
 import 'package:lautkita_mobile/pages/auth/sign_up_page.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_home_page.dart';
-import 'package:lautkita_mobile/pages/home/home_page.dart';
+import 'package:lautkita_mobile/pages/volunteer/home_page.dart';
 import 'package:lautkita_mobile/pages/loading.dart';
 
 import 'firebase_options.dart';

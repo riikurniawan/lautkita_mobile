@@ -1,44 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lautkita_mobile/data/datasources/auth_local_datasources.dart';
+import 'package:lautkita_mobile/common/global_variables.dart';
+import 'package:lautkita_mobile/data/models/article_model.dart';
 import 'package:lautkita_mobile/pages/auth/login_page.dart';
+import 'package:lautkita_mobile/utils/color_resources.dart';
 
-import '../../bloc/logout/logout_bloc.dart';
-import '../../data/models/article_model.dart';
-import '../../utils/color_resources.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePageContent extends StatefulWidget {
+  const HomePageContent({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageContent> createState() => _HomePageContentState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageContentState extends State<HomePageContent> {
   final ScrollController _scrollController = ScrollController();
   TextEditingController searchController = TextEditingController();
-
-  String token = '';
-  String name = '';
-
-  @override
-  void initState() {
-    super.initState();
-
-    // AuthLocalDatasource().getToken().then((value) {
-    //   setState(() {
-    //     token = value;
-    //   });
-    // });
-
-    // AuthLocalDatasource().getUserName().then((value) {
-    //   setState(() {
-    //     name = value ?? '';
-    //   });
-    // });
-  }
 
   void showLogoutAlertDialog(BuildContext context) {
     showDialog(
@@ -75,9 +53,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -143,67 +119,20 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    name,
+                    userName,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                     ),
                   ),
-                  Text(
-                    token,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
                 ],
               ),
             ),
-            BlocConsumer<LogoutBloc, LogoutState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  orElse: () {},
-                  loaded: (message) {
-                    AuthLocalDatasource().removeAuthData();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return const LoginPage();
-                      }),
-                      (route) => false,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Logout Successfully"),
-                        backgroundColor: Colors.blue,
-                      ),
-                    );
-                  },
-                  error: (message) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(message),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  },
-                );
-              },
-              builder: (context, state) {
-                return state.maybeWhen(
-                  orElse: () {
-                    return ListTile(
-                      leading: const Icon(Icons.exit_to_app),
-                      title: const Text('Logout'),
-                      onTap: () {
-                        showLogoutAlertDialog(context);
-                      },
-                    );
-                  },
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Logout'),
+              onTap: () {
+                showLogoutAlertDialog(context);
               },
             ),
           ],
@@ -289,8 +218,8 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       "Discover things of this world",
                       style: TextStyle(
@@ -299,9 +228,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.0),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
+                  const SizedBox(height: 16.0),
+                  SizedBox(
+                    height: 350.h,
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: items.length,
@@ -319,22 +248,22 @@ class _HomePageState extends State<HomePage> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              SizedBox(width: 8.0),
+                              const SizedBox(width: 8.0),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       items[index].title,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 4.0),
+                                    const SizedBox(height: 4.0),
                                     Text(
                                       items[index].description,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 12.0,
                                         color: Colors.grey,
                                       ),

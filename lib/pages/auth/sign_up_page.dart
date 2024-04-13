@@ -8,7 +8,7 @@ import 'package:lautkita_mobile/pages/auth/login_page.dart';
 
 import '../../bloc/register/register_bloc.dart';
 import '../../data/datasources/auth_local_datasources.dart';
-import '../home/home_page.dart';
+import '../volunteer/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lautkita_mobile/pages/community/model/nav_model.dart';
-import 'package:lautkita_mobile/pages/community/pages/c_home_page_view.dart';
+import 'package:lautkita_mobile/pages/community/pages/c_home_page_content.dart';
 import 'package:lautkita_mobile/pages/community/pages/c_profile.dart';
 import 'package:lautkita_mobile/widget/bottom_app_bar_widget.dart';
+import 'package:lautkita_mobile/widget/floating_action_button_app.dart';
 
 class CHomePage extends StatefulWidget {
   const CHomePage({super.key});
@@ -46,7 +47,7 @@ class _CHomePageState extends State<CHomePage> {
     navItems = [
       NavModel(
         navKey: homeNavKey,
-        page: CHomePageView(searchBox: searchBox),
+        page: CHomeContent(searchBox: searchBox),
       ),
       NavModel(
         navKey: marketplaceNavKey,
@@ -160,22 +161,7 @@ class _CHomePageState extends State<CHomePage> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(top: 15.0, right: 2),
-          child: FloatingActionButton.small(
-            onPressed: () {},
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            backgroundColor: const Color(0xFFFF7029),
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-        ),
+        floatingActionButton: const floatingActionButtonApp(),
         body: IndexedStack(
           index: selectedTab,
           children: navItems

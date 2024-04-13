@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lautkita_mobile/widget/search_bar_widget.dart';
 
-class CHomePageView extends StatelessWidget {
-  const CHomePageView({
+class CHomeContent extends StatelessWidget {
+  const CHomeContent({
     super.key,
     required this.searchBox,
   });
