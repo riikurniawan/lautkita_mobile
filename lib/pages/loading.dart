@@ -36,8 +36,6 @@ class _LoadingState extends State<Loading> {
 
             print(userName);
             print(role);
-            print((snap.snapshot.value as Map)['name']);
-            print((snap.snapshot.value as Map)['role']);
           } else {
             FirebaseAuth.instance.signOut();
             // cMethods.displaySnackBar(

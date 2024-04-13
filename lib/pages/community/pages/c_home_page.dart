@@ -161,7 +161,7 @@ class _CHomePageState extends State<CHomePage> {
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: const floatingActionButtonApp(),
+        floatingActionButton: const FloatingActionButtonApp(),
         body: IndexedStack(
           index: selectedTab,
           children: navItems
