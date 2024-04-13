@@ -9,13 +9,16 @@ class CommonMethods {
         connectionResult != ConnectivityResult.wifi) {
       if (!context.mounted) return;
       displaySnackBar(
-          "your Internet is not Available. Check your connection. Try Again.",
+          "Your internet is not Available. Check your connection. Try Again.",
           context);
     }
   }
 
-  displaySnackBar(String messageText, BuildContext context) {
-    var snackBar = SnackBar(content: Text(messageText));
+  displaySnackBar(String messageText, BuildContext context, {Color? color}) {
+    var snackBar = SnackBar(
+      content: Text(messageText),
+      backgroundColor: color,
+    );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

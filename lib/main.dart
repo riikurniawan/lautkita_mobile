@@ -52,6 +52,13 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
+          theme: ThemeData(
+            useMaterial3: true,
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: Color.fromRGBO(0, 168, 204, 1),
+              selectionColor: Color.fromRGBO(0, 168, 204, 1),
+            ),
+          ),
           routes: {
             '/login': (context) => const LoginPage(),
             '/sign_up': (context) => const SignUpPage(),
@@ -63,8 +70,9 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
+                final user = snapshot.data;
                 uid = snapshot.data?.uid;
-                if (snapshot.data == null) {
+                if (user == null) {
                   // return const Loading();
                   // navigatorKey.currentState?.pushReplacementNamed('/login');
                   // return const Scaffold(
